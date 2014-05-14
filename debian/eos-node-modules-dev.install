@@ -1,0 +1,5 @@
+usr/lib/nodejs/apidoc
+usr/lib/nodejs/frisby
+usr/lib/nodejs/jasmine-node
+usr/lib/nodejs/rewire
+usr/lib/nodejs/supertest
