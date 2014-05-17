@@ -21,7 +21,7 @@ EXTRA_DIST = npm.stamp sysmodules.py node_modules
 # modules in /usr/lib/i386-linux-gnu/nodejs, for example.
 
 installdirs-local:
-	$(INSTALL_DATA) -d $(DESTDIR)$(prefix)/lib/nodejs;
+	$(INSTALL_DATA) -m 755 -d $(DESTDIR)$(prefix)/lib/nodejs;
 
 install-data-local: installdirs
 	export system_modules="@eos_node_system_modules@"; \
@@ -34,3 +34,16 @@ install-data-local: installdirs
 			echo "Skipping system module $$module_name..."; \
 		fi \
 	done
+
+uninstall-local:
+	export system_modules="@eos_node_system_modules@"; \
+	for module in node_modules/*; do \
+		module_name=`basename $$module`; \
+		if [ "$${system_modules/$$module_name}" = "$$system_modules" ]; then \
+			echo "Uninstalling $$module_name..."; \
+			rm -rf $(DESTDIR)$(prefix)/lib/nodejs/$$module_name; \
+		fi \
+	done
+
+distclean-local:
+	rm -rf node_modules
