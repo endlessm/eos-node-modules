@@ -1,0 +1,30 @@
+{
+  "name": "eos-node-modules",
+  "version": "@PACKAGE_VERSION@",
+  "author": "Endless Mobile, Inc.",
+  "description": "EndlessOS node.js modules",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:endlessm/eos-node-modules"
+  },
+  "dependencies": {
+    "request": "*",
+    "jsonld": "*",
+    "express": "^3.1",
+    "i18n": "^0.4",
+    "jade": "^0.28",
+    "q": "^0.9",
+    "mustache": "^0.7",
+    "socket.io": "^0.9",
+    "mime": "^1.2",
+    "require": "*"
+  },
+  "devDependencies": {
+    "apidoc": "^0.4",
+    "frisby": "^0.7",
+    "rewire": "^2.0",
+    "supertest": "^0.10",
+    "jasmine-node": "^1.12"
+  },
+  "license": "Proprietary"
+}
