@@ -1,0 +1,6 @@
+eos-node-modules
+eos-node-modules-dev
+*.debhelper.log
+*.substvars
+files
+tmp

@@ -1,0 +1,15 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: eos-node-modules
+Source: https://github.com/endlessm/eos-node-modules
+
+Files: *
+Copyright: 2014 Endless Mobile, Inc.
+License: Proprietary
+
+Files: debian/*
+Copyright: 2014 Endless Mobile, Inc.
+License: Proprietary
+
+Files: node_modules/*
+Copyright: Various
+License: Various
