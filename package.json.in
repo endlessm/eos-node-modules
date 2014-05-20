@@ -18,7 +18,8 @@
     "socket.io": "^0.9",
     "mime": "^1.2",
     "require": "*",
-    "autoquit": "*"
+    "autoquit": "*",
+    "systemd": "*"
   },
   "devDependencies": {
     "apidoc": "^0.4",

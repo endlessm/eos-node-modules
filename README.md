@@ -65,3 +65,4 @@ Module index
 - **rewire**: eos-knowledge-engine (dev)
 - **socket.io**: eos-knowledge-engine, eos-wikipedia-offline
 - **supertest**: eos-knowledge-engine (dev)
+- **systemd**: eos-wikipedia-offline
