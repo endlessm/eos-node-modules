@@ -14,7 +14,8 @@ Package: eos-node-modules
 Architecture: any
 Depends: ${misc:Depends}
 Suggests: nodejs
-Conflicts: node-express,
+Conflicts: node-autoquit,
+           node-express,
            node-i18n,
            node-jade,
            node-jsonld,
