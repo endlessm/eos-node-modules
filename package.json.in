@@ -17,7 +17,8 @@
     "mustache": "^0.7",
     "socket.io": "^0.9",
     "mime": "^1.2",
-    "require": "*"
+    "require": "*",
+    "autoquit": "*"
   },
   "devDependencies": {
     "apidoc": "^0.4",

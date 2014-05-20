@@ -19,7 +19,7 @@ Go through the following checklist:
 - in `debian/control`, make sure all the packages listed in `Conflicts:` correspond with all the entries in the `.install` files from the previous step.
 - in line 1 of `configure.ac`, increment the *minor* version of the `eos-node-modules` package. (For example, from 0.5.0 to 0.6.0.) Your package should now depend on `eos-node-modules (>= 0.6)` (or build-depend on `eos-node-modules-dev (>= 0.6)`.)
 - update the Debian changelog with `dch`.
-- add the module to the Module Index at the bottom of this readme file. Specify the name of your package.
+- add the module to the Module Index at the bottom of this readme file. Specify the name of your package. Maintain alphabetical order for others' convenience.
 - add yourself to `contributors` :smile:
 - add the usual `Version_x.y.z` and `Version_x.y.z_debian` tags to the git repo.
 
@@ -49,19 +49,19 @@ Definitely don't upgrade modules just because there is a new major version avail
 
 Module index
 ------------
-- **request**: eos-knowledge-engine
-- **jsonld**: eos-knowledge-engine
+- **apidoc**: eos-knowledge-engine (dev)
+- **autoquit**: eos-wikipedia-offline
 - **express**: eos-knowledge-engine, eos-wikipedia-offline
+- **frisby**: eos-knowledge-engine (dev)
 - **i18n**: eos-knowledge-engine, eos-wikipedia-offline
 - **jade**: eos-knowledge-engine, eos-wikipedia-offline
-- **q**: eos-knowledge-engine, eos-wikipedia-offline
-- **mustache**: eos-knowledge-engine, eos-wikipedia-offline
-- **socket.io**: eos-knowledge-engine, eos-wikipedia-offline
-- **mime**: eos-knowledge-engine
-- **require**: eos-wikipedia-offline
-- **apidoc**: eos-knowledge-engine (dev)
-- **frisby**: eos-knowledge-engine (dev)
-- **rewire**: eos-knowledge-engine (dev)
-- **supertest**: eos-knowledge-engine (dev)
 - **jasmine-node**: eos-knowledge-engine (dev), eos-wikipedia-offline (dev)
-
+- **jsonld**: eos-knowledge-engine
+- **mime**: eos-knowledge-engine
+- **mustache**: eos-knowledge-engine, eos-wikipedia-offline
+- **q**: eos-knowledge-engine, eos-wikipedia-offline
+- **request**: eos-knowledge-engine
+- **require**: eos-wikipedia-offline
+- **rewire**: eos-knowledge-engine (dev)
+- **socket.io**: eos-knowledge-engine, eos-wikipedia-offline
+- **supertest**: eos-knowledge-engine (dev)
