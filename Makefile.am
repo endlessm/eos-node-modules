@@ -6,16 +6,16 @@ npm.stamp: package.json
 	touch $@
 
 # Adding 'npm dedupe' after 'npm install' consolidates some dependencies, and
-# brings the XZ dist tarball size down by about 100k; the effect on the
-# package's installed size is more dramatic, about 1.5M.
+# the effect on the package's installed size is dramatic, about 1.5M.
 #
 # It comes at the cost of some complexity; when adding packages you have to
 # check whether their dependencies get consolidated into the top level, and add
 # appropriate install rules to the debian/*.install files, and add them to
 # Conflicts: in debian/control.
 
-CLEANFILES = npm.stamp sysmodules-cache.txt
-EXTRA_DIST = npm.stamp sysmodules.py node_modules
+CLEANFILES = sysmodules-cache.txt
+DISTCLEANFILES = npm.stamp
+EXTRA_DIST = sysmodules.py
 
 # Use $(prefix)/lib/nodejs instead of $(libdir)/nodejs; nodejs will not look for
 # modules in /usr/lib/i386-linux-gnu/nodejs, for example.
