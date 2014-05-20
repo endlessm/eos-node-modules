@@ -23,7 +23,8 @@ Conflicts: node-autoquit,
            node-mustache,
            node-readable-stream,
            node-require,
-           node-socket.io
+           node-socket.io,
+           node-systemd
 Description: Node.js modules required in EndlessOS
  Modules that will be installed on every user's system, for example required for
  the content center or the knowledge engine.

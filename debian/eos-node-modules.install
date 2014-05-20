@@ -8,3 +8,4 @@ usr/lib/nodejs/mustache
 usr/lib/nodejs/readable-stream
 usr/lib/nodejs/require
 usr/lib/nodejs/socket.io
+usr/lib/nodejs/systemd
