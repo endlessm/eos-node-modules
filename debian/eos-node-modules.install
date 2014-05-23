@@ -1,5 +1,6 @@
 usr/lib/nodejs/autoquit
 usr/lib/nodejs/express
+usr/lib/nodejs/htmlparser2
 usr/lib/nodejs/i18n
 usr/lib/nodejs/jade
 usr/lib/nodejs/jsonld
@@ -9,3 +10,4 @@ usr/lib/nodejs/readable-stream
 usr/lib/nodejs/require
 usr/lib/nodejs/socket.io
 usr/lib/nodejs/systemd
+usr/lib/nodejs/xml2js
