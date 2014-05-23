@@ -10,7 +10,8 @@
   "dependencies": {
     "request": "*",
     "jsonld": "*",
-    "express": "^3.1",
+    "express": "^3.5",
+    "htmlparser2": "*",
     "i18n": "^0.4",
     "jade": "^0.28",
     "q": "^0.9",
@@ -19,7 +20,8 @@
     "mime": "^1.2",
     "require": "*",
     "autoquit": "*",
-    "systemd": "*"
+    "systemd": "*",
+    "xml2js": "*"
   },
   "devDependencies": {
     "apidoc": "^0.4",
