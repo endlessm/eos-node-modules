@@ -1,8 +1,20 @@
 #!/usr/bin/env python
 
 import subprocess
+import sys
+import argparse
+import json
+import os
 
 _SYSPACKAGES = ['npm']
+
+parser = argparse.ArgumentParser()
+parser.add_argument('-i', '--intersect',
+                    help='path to package.json file requiring intersection',
+                    type=str, dest='path')
+parser.add_argument('-f', '--format',
+                    help='how to format the module names. Either debian or node',
+                    type=str, default='node', dest='fmt')
 
 
 def _node_module_dependencies(package):
@@ -32,10 +44,52 @@ def _analyze_dependencies(packages):
     return sysmodules
 
 
-def system_node_modules():
-    """Return a list of all the node.js modules (without the 'node-' prefix)
-    that are dependencies of node.js utilities that need to be installed on the
-    system. Currently the only such utility is npm."""
-    return [module[len('node-'):] for module in _analyze_dependencies(_SYSPACKAGES)]
+def system_node_modules(pkg_json_path):
+    """Return a set of all the node.js modules that are dependencies of node.js
+    utilities that need to be installed on the system. If a pkg_json_path is
+    specified, it will instead return the modules that pkg_json_path has in
+    common with the system"""
+    system_modules = _analyze_dependencies(_SYSPACKAGES)
 
-print ' '.join(system_node_modules())
+    if pkg_json_path is not None:
+        with open(pkg_json_path) as json_file:
+            # load the package.json file
+            node_pkg_data = json.load(json_file)
+            all_deps = set()
+
+            # for dependencies and devDependencies, collect the module names
+            # and convert them into package names (by prepending 'node-')
+            if 'dependencies' in node_pkg_data:
+                node_deps = node_pkg_data['dependencies'].keys()
+                pkg_deps = ['node-' + module for module in node_deps]
+                all_deps |= set(pkg_deps)
+            if 'devDependencies' in node_pkg_data:
+                node_dev_deps = node_pkg_data['devDependencies'].keys()
+                pkg_dev_deps = ['node-' + module for module in node_dev_deps]
+                all_deps |= set(pkg_dev_deps)
+
+            # return the debian package names for all shared node modules in
+            # package.json and existing system modules
+            return all_deps & system_modules
+    return system_modules
+
+
+def main(fmt, pkg_json_path):
+    pkg_names = system_node_modules(pkg_json_path)
+
+    if fmt == 'node':
+        # strip the 'node-' prefix from the package names
+        pkg_names = [pkg[len('node-'):] for pkg in pkg_names]
+        print ' '.join(pkg_names)
+    elif fmt == 'deb':
+        print ', '.join(pkg_names)
+
+if __name__ == '__main__':
+    args = parser.parse_args()
+    if args.fmt not in ('node', 'deb'):
+        print 'Invalid format: %s' % str(args.fmt)
+        sys.exit(1)
+    if args.path and not os.path.isfile(args.path):
+        print 'Nonexistent package.json at path: %s' % args.path
+        sys.exit(1)
+    main(args.fmt, args.path)

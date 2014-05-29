@@ -10,7 +10,7 @@ AC_PATH_PROG([APT_CACHE], [apt-cache], [notfound])
 AS_IF([test "x$APT_CACHE" = xnotfound], [AC_MSG_ERROR([apt-cache is required.])])
 
 AC_MSG_CHECKING([for node modules that have to be installed from Ubuntu repos])
-AC_SUBST([eos_node_system_modules], [`$srcdir/sysmodules.py`])
+AC_SUBST([eos_node_system_modules], [`$srcdir/sysmodules.py --format node`])
 AC_MSG_RESULT([ok])
 
 AC_CONFIG_FILES([package.json Makefile])
