@@ -24,10 +24,11 @@ installdirs-local:
 	$(INSTALL_DATA) -m 755 -d $(DESTDIR)$(prefix)/lib/nodejs;
 
 install-data-local: installdirs
-	export system_modules="@eos_node_system_modules@"; \
+	export system_modules="`echo "@eos_node_system_modules@" | sed "s/ /\n/g"`"; \
 	for module in node_modules/*; do \
 		module_name=`basename $$module`; \
-		if [ "$${system_modules/$$module_name}" = "$$system_modules" ]; then \
+		module_regexp="^$$module_name$$"; \
+		if ! echo "$$system_modules" | grep -q -G "$$module_regexp"; then \
 			echo "Installing $$module_name..."; \
 			cp -R $$module $(DESTDIR)$(prefix)/lib/nodejs; \
 		else \
@@ -36,10 +37,11 @@ install-data-local: installdirs
 	done
 
 uninstall-local:
-	export system_modules="@eos_node_system_modules@"; \
+	export system_modules="`echo "@eos_node_system_modules@" | sed "s/ /\n/g"`"; \
 	for module in node_modules/*; do \
 		module_name=`basename $$module`; \
-		if [ "$${system_modules/$$module_name}" = "$$system_modules" ]; then \
+		module_regexp="^$$module_name$$"; \
+		if ! echo "$$system_modules" | grep -q -G "$$module_regexp"; then \
 			echo "Uninstalling $$module_name..."; \
 			rm -rf $(DESTDIR)$(prefix)/lib/nodejs/$$module_name; \
 		fi \
