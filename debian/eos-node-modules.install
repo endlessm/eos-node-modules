@@ -6,6 +6,7 @@ usr/lib/nodejs/jade
 usr/lib/nodejs/jsonld
 usr/lib/nodejs/keypress
 usr/lib/nodejs/mustache
+usr/lib/nodejs/q
 usr/lib/nodejs/readable-stream
 usr/lib/nodejs/require
 usr/lib/nodejs/socket.io
