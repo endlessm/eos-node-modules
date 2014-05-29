@@ -12,7 +12,8 @@ Vcs-Git: https://github.com/endlessm/eos-node-modules
 
 Package: eos-node-modules
 Architecture: any
-Depends: ${misc:Depends}
+Depends: ${misc:Depends},
+         ${npm:Overlaps}
 Suggests: nodejs
 Conflicts: node-autoquit,
            node-express,

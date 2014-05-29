@@ -4,5 +4,11 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
+OVERLAPS=`./sysmodules.py --intersect package.json --format deb`
+SUBSTVARS=-Vnpm:Overlaps="$(OVERLAPS)"
+
 %:
 	dh $@
+
+override_dh_gencontrol:
+	dh_gencontrol -- $(SUBSTVARS)
