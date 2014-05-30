@@ -54,7 +54,7 @@ Module index
 - **express**: eos-knowledge-engine, eos-wikipedia-offline, eos-newspaper-server
 - **frisby**: eos-knowledge-engine (dev)
 - **htmlparser2**: eos-newspaper-updater
-- **i18n**: eos-knowledge-engine, eos-wikipedia-offline
+- **i18n-moustache**: eos-knowledge-engine, eos-wikipedia-offline
 - **jade**: eos-knowledge-engine, eos-wikipedia-offline
 - **jasmine-node**: eos-knowledge-engine (dev), eos-wikipedia-offline (dev)
 - **jsonld**: eos-knowledge-engine

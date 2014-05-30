@@ -12,7 +12,7 @@
     "jsonld": "*",
     "express": "^3.5",
     "htmlparser2": "*",
-    "i18n": "^0.4",
+    "i18n-moustache": "^0.1",
     "jade": "^0.28",
     "q": "^0.9",
     "mustache": "^0.7",
