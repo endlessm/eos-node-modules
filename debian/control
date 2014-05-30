@@ -18,7 +18,6 @@ Suggests: nodejs
 Conflicts: node-autoquit,
            node-express,
            node-htmlparser2,
-           node-i18n,
            node-jade,
            node-jsonld,
            node-keypress,
