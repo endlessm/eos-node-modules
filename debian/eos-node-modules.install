@@ -1,7 +1,7 @@
 usr/lib/nodejs/autoquit
 usr/lib/nodejs/express
 usr/lib/nodejs/htmlparser2
-usr/lib/nodejs/i18n
+usr/lib/nodejs/i18n-moustache
 usr/lib/nodejs/jade
 usr/lib/nodejs/jsonld
 usr/lib/nodejs/mustache
