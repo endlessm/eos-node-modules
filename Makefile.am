@@ -2,7 +2,6 @@ all-local: npm.stamp
 
 npm.stamp: package.json
 	npm install
-	npm dedupe
 	touch $@
 
 # Adding 'npm dedupe' after 'npm install' consolidates some dependencies, and

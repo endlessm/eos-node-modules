@@ -1,4 +1,4 @@
-AC_INIT([eos-node-modules], [0.0.0])
+AC_INIT([eos-node-modules], [0.1.0])
 dnl tar-pax is required instead of tar-ustar, because there are very long paths
 dnl in the node_modules trees.
 AM_INIT_AUTOMAKE([foreign dist-xz no-dist-gzip tar-pax -Wall])
