@@ -52,6 +52,7 @@ Module index
 - **apidoc**: eos-knowledge-engine (dev)
 - **autoquit**: eos-wikipedia-offline, eos-newspaper-server, eos-knowledge-engine
 - **express**: eos-knowledge-engine, eos-wikipedia-offline, eos-newspaper-server
+- **feedparser**: eos-newspaper-updater
 - **frisby**: eos-knowledge-engine (dev)
 - **htmlparser2**: eos-newspaper-updater
 - **i18n-moustache**: eos-knowledge-engine, eos-wikipedia-offline
@@ -67,4 +68,3 @@ Module index
 - **socket.io**: eos-knowledge-engine, eos-wikipedia-offline
 - **supertest**: eos-knowledge-engine (dev)
 - **systemd**: eos-wikipedia-offline, eos-newspaper-server, eos-knowledge-engine
-- **xml2js**: eos-newspaper-updater

@@ -11,6 +11,7 @@
     "request": "*",
     "jsonld": "*",
     "express": "^3.5",
+    "feedparser": "^0.18",
     "htmlparser2": "*",
     "i18n-moustache": "^0.1",
     "jade": "^0.28",
@@ -20,8 +21,7 @@
     "mime": "^1.2",
     "require": "*",
     "autoquit": "*",
-    "systemd": "*",
-    "xml2js": "*"
+    "systemd": "*"
   },
   "devDependencies": {
     "apidoc": "^0.4",
