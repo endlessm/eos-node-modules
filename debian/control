@@ -17,6 +17,7 @@ Depends: ${misc:Depends},
 Suggests: nodejs
 Conflicts: node-autoquit,
            node-express,
+           node-feedparser,
            node-htmlparser2,
            node-jade,
            node-jsonld,
@@ -26,8 +27,7 @@ Conflicts: node-autoquit,
            node-readable-stream,
            node-require,
            node-socket.io,
-           node-systemd,
-           node-xml2js
+           node-systemd
 Description: Node.js modules required in EndlessOS
  Modules that will be installed on every user's system, for example required for
  the content center or the knowledge engine.

@@ -1,5 +1,13 @@
+eos-node-modules (0.2.0) UNRELEASED; urgency=medium
+
+  [ Roberto G ]
+  * Switched from xml2js to feedparser.
+
+ -- Roberto G <goizueta@endlessm.com>  Fri, 1 Aug 2014 13:54:55 -0700
+
 eos-node-modules (0.1.0) UNRELEASED; urgency=medium
 
+  [ Will G ]
   * Switched from i18n to i18n-moustache
 
  -- Will G <will@endlessm.com>  Fri, 30 May 2014 11:54:55 -0700
