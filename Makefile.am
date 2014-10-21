@@ -14,7 +14,7 @@ npm.stamp: package.json
 
 CLEANFILES = sysmodules-cache.txt
 DISTCLEANFILES = npm.stamp
-EXTRA_DIST = sysmodules.py
+EXTRA_DIST = node-pkg-info.py
 
 # Use $(prefix)/lib/nodejs instead of $(libdir)/nodejs; nodejs will not look for
 # modules in /usr/lib/i386-linux-gnu/nodejs, for example.
