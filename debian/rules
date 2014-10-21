@@ -4,8 +4,15 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-OVERLAPS=`./sysmodules.py --intersect package.json --format deb`
-SUBSTVARS=-Vnpm:Overlaps="$(OVERLAPS)"
+OVERLAPS=`./node-pkg-info.py package.json --intersect --format deb`
+PROD_PKGS=`./node-pkg-info.py package.json --diff prod --format deb`
+DEV_PKGS=`./node-pkg-info.py package.json --diff dev --format deb`
+SUBSTVARS=-Vnpm:Overlaps="$(OVERLAPS)" -Vnpm:ProdPkgs="$(PROD_PKGS)" -Vnpm:DevPkgs="$(DEV_PKGS)"
+
+override_dh_install:
+	./node-pkg-info.py package.json --diff prod --format install > debian/eos-node-modules.install
+	./node-pkg-info.py package.json --diff dev --format install > debian/eos-node-modules-dev.install
+	dh_install
 
 %:
 	dh $@
