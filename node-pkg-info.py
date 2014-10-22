@@ -9,16 +9,18 @@ import os
 _SYSPACKAGES = ['npm']
 
 parser = argparse.ArgumentParser()
-parser.add_argument('package_manifest_path', type=str, nargs='?')
+parser.add_argument('package_manifest_path', type=str, nargs='?',
+                    help='path to the package.json file')
 parser.add_argument('-i', '--intersect',
                     help='print the intersection of system modules and package.json modules',
                     action='store_true')
 parser.add_argument('-d', '--diff',
                     help='print the set difference of (NODE MODULES) - (SYSTEM MODULES)',
-                    type=str, dest='diff_type')
+                    choices=['prod', 'dev'], type=str, dest='diff_type')
 parser.add_argument('-f', '--format',
                     help='how to format the module names',
-                    type=str, default='node', dest='fmt')
+                    choices=['deb', 'node', 'install'], type=str,
+                    default='node', dest='fmt')
 
 
 def _node_module_dependencies(package):
@@ -88,10 +90,7 @@ def package_manifest_modules(pkg_json_path):
             node_dev_deps = node_pkg_data['devDependencies'].keys()
             pkg_dev_deps = ['node-' + module for module in node_dev_deps]
 
-    return {
-        'prod': pkg_deps,
-        'dev': pkg_dev_deps
-    }
+    return pkg_deps, pkg_dev_deps
 
 def main(action, fmt, pkg_json_path):
     if action == 'intersect':
@@ -99,9 +98,10 @@ def main(action, fmt, pkg_json_path):
     elif action == 'sysmodules':
         pkg_names = system_node_modules()
     elif action == 'dev' or action == 'prod':
-        node_pkgs = set(package_manifest_modules(pkg_json_path)[action])
-        sys_pkgs = set(system_node_modules())
-        pkg_names = node_pkgs - sys_pkgs
+        prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
+        node_pkgs = prod_pkgs if action == 'prod' else dev_pkgs
+        sys_pkgs = system_node_modules()
+        pkg_names = set(node_pkgs) - set(sys_pkgs)
 
     if fmt == 'node':
         # strip the 'node-' prefix from the package names
@@ -117,14 +117,8 @@ def main(action, fmt, pkg_json_path):
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    if args.fmt not in ('node', 'deb', 'install'):
-        print 'Invalid format: %s' % str(args.fmt)
-        sys.exit(1)
     if args.package_manifest_path and not os.path.isfile(args.package_manifest_path):
         print 'Nonexistent package.json at package_manifest_path: %s' % args.package_manifest_path
-        sys.exit(1)
-    if args.diff_type and args.diff_type not in ('dev', 'prod'):
-        print 'Invalid diff type: %s' % str(args.diff_type)
         sys.exit(1)
 
     if args.intersect:
