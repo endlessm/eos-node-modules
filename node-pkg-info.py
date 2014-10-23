@@ -15,7 +15,7 @@ parser.add_argument('-i', '--intersect',
                     help='print the intersection of system modules and package.json modules',
                     action='store_true')
 parser.add_argument('-d', '--diff',
-                    help='print the set difference of (NODE MODULES) - (SYSTEM MODULES)',
+                    help='print the set difference of (DEDUPED NODE MODULES) - (SYSTEM MODULES)',
                     choices=['prod', 'dev'], type=str, dest='diff_type')
 parser.add_argument('-f', '--format',
                     help='how to format the module names',
@@ -92,6 +92,24 @@ def package_manifest_modules(pkg_json_path):
 
     return pkg_deps, pkg_dev_deps
 
+def toplevel_deduped_modules(pkg_json_path):
+    # get the output of calling ls-dedupe, which is all node modules installed
+    # after calling "node install && node dedupe"
+    buf = subprocess.check_output(['./ls-dedupe'])
+
+    # get an array of these modules, prepended with 'node-'
+    nonempty = lambda name: name != ''
+    all_modules = ['node-' + module for module in filter(nonempty, buf.split('\n'))]
+
+    # get the set of modules in the manifest (i.e. contents of package.json)
+    prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
+    all_manifest_modules = set(prod_pkgs) | set(dev_pkgs)
+
+    # the set of modules which exist only because of deduping is:
+    # (contents of node_modules after deduping) - (modules listed in manifest)
+    deduped_only = set(all_modules) - all_manifest_modules
+    return deduped_only
+
 def main(action, fmt, pkg_json_path):
     if action == 'intersect':
         pkg_names = system_node_modules(pkg_json_path)
@@ -101,6 +119,8 @@ def main(action, fmt, pkg_json_path):
         prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
         node_pkgs = prod_pkgs if action == 'prod' else dev_pkgs
         sys_pkgs = system_node_modules()
+        if action == 'prod':
+            node_pkgs = set(node_pkgs) | set(toplevel_deduped_modules(pkg_json_path))
         pkg_names = set(node_pkgs) - set(sys_pkgs)
 
     if fmt == 'node':
@@ -108,7 +128,7 @@ def main(action, fmt, pkg_json_path):
         pkg_names = [pkg[len('node-'):] for pkg in pkg_names]
         print ' '.join(pkg_names)
     elif fmt == 'deb':
-        print ', '.join(pkg_names)
+        print ', '.join(map(lambda name: name.replace('_', '-'), pkg_names))
     elif fmt == 'install':
         install_prefix = 'usr/lib/nodejs'
         pkg_names = [pkg[len('node-'):] for pkg in pkg_names]

@@ -2,6 +2,7 @@ all-local: npm.stamp
 
 npm.stamp: package.json
 	npm install
+	npm dedupe
 	touch $@
 
 # Adding 'npm dedupe' after 'npm install' consolidates some dependencies, and
@@ -12,7 +13,7 @@ npm.stamp: package.json
 # appropriate install rules to the debian/*.install files, and add them to
 # Conflicts: in debian/control.
 
-CLEANFILES = sysmodules-cache.txt
+CLEANFILES = sysmodules-cache.txt .ls-dedupe-cache
 DISTCLEANFILES = npm.stamp
 EXTRA_DIST = node-pkg-info.py
 
