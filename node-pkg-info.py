@@ -9,12 +9,18 @@ import os
 _SYSPACKAGES = ['npm']
 
 parser = argparse.ArgumentParser()
+parser.add_argument('package_manifest_path', type=str, nargs='?',
+                    help='path to the package.json file')
 parser.add_argument('-i', '--intersect',
-                    help='path to package.json file requiring intersection',
-                    type=str, dest='path')
+                    help='print the intersection of system modules and package.json modules',
+                    action='store_true')
+parser.add_argument('-d', '--diff',
+                    help='print the set difference of (NODE MODULES) - (SYSTEM MODULES)',
+                    choices=['prod', 'dev'], type=str, dest='diff_type')
 parser.add_argument('-f', '--format',
-                    help='how to format the module names. Either debian or node',
-                    type=str, default='node', dest='fmt')
+                    help='how to format the module names',
+                    choices=['deb', 'node', 'install'], type=str,
+                    default='node', dest='fmt')
 
 
 def _node_module_dependencies(package):
@@ -44,7 +50,7 @@ def _analyze_dependencies(packages):
     return sysmodules
 
 
-def system_node_modules(pkg_json_path):
+def system_node_modules(pkg_json_path=None):
     """Return a set of all the node.js modules that are dependencies of node.js
     utilities that need to be installed on the system. If a pkg_json_path is
     specified, it will instead return the modules that pkg_json_path has in
@@ -73,9 +79,29 @@ def system_node_modules(pkg_json_path):
             return all_deps & system_modules
     return system_modules
 
+def package_manifest_modules(pkg_json_path):
+    with open(pkg_json_path) as json_file:
+        # load the package.json file
+        node_pkg_data = json.load(json_file)
+        if 'dependencies' in node_pkg_data:
+            node_deps = node_pkg_data['dependencies'].keys()
+            pkg_deps = ['node-' + module for module in node_deps]
+        if 'devDependencies' in node_pkg_data:
+            node_dev_deps = node_pkg_data['devDependencies'].keys()
+            pkg_dev_deps = ['node-' + module for module in node_dev_deps]
 
-def main(fmt, pkg_json_path):
-    pkg_names = system_node_modules(pkg_json_path)
+    return pkg_deps, pkg_dev_deps
+
+def main(action, fmt, pkg_json_path):
+    if action == 'intersect':
+        pkg_names = system_node_modules(pkg_json_path)
+    elif action == 'sysmodules':
+        pkg_names = system_node_modules()
+    elif action == 'dev' or action == 'prod':
+        prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
+        node_pkgs = prod_pkgs if action == 'prod' else dev_pkgs
+        sys_pkgs = system_node_modules()
+        pkg_names = set(node_pkgs) - set(sys_pkgs)
 
     if fmt == 'node':
         # strip the 'node-' prefix from the package names
@@ -83,13 +109,21 @@ def main(fmt, pkg_json_path):
         print ' '.join(pkg_names)
     elif fmt == 'deb':
         print ', '.join(pkg_names)
+    elif fmt == 'install':
+        install_prefix = 'usr/lib/nodejs'
+        pkg_names = [pkg[len('node-'):] for pkg in pkg_names]
+        pkg_paths = [os.path.join(install_prefix, pkg) for pkg in pkg_names]
+        print '\n'.join(pkg_paths)
 
 if __name__ == '__main__':
     args = parser.parse_args()
-    if args.fmt not in ('node', 'deb'):
-        print 'Invalid format: %s' % str(args.fmt)
+    if args.package_manifest_path and not os.path.isfile(args.package_manifest_path):
+        print 'Nonexistent package.json at package_manifest_path: %s' % args.package_manifest_path
         sys.exit(1)
-    if args.path and not os.path.isfile(args.path):
-        print 'Nonexistent package.json at path: %s' % args.path
-        sys.exit(1)
-    main(args.fmt, args.path)
+
+    if args.intersect:
+        main('intersect', args.fmt, args.package_manifest_path)
+    elif args.diff_type:
+        main(args.diff_type, args.fmt, args.package_manifest_path)
+    else:
+        main('sysmodules', args.fmt, args.package_manifest_path)

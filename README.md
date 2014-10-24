@@ -9,16 +9,13 @@ The modules included are controlled by the `package.json` file. See [Nodejitsu](
 
 Adding a module
 ---------------
-Unfortunately this is not as simple as just adding the module to `dependencies` or `devDependencies` in `package.json.in`, although that is the first thing you should do.
+For the most part, this is as simple as adding the module to `dependencies` or `devDependencies` in `package.json.in`. Some extra steps are needed, though:
 Go through the following checklist:
 
 - add the module and its version to `dependencies` or `devDependencies` in `package.json.in` (see Note about Versions, below.)
 - run `make` and make sure the module is downloaded and compiled correctly.
 - run `DESTDIR=staging make install` to test installing into a staging directory.
-- in `debian/eos-node-modules.install` and `debian/eos-node-modules-dev.install`, make sure all the entries correspond with all the directories in `staging/usr/lib/nodejs`.
-- in `debian/control`, make sure all the packages listed in `Conflicts:` correspond with all the entries in the `.install` files from the previous step.
 - in line 1 of `configure.ac`, increment the *minor* version of the `eos-node-modules` package. (For example, from 0.5.0 to 0.6.0.) Your package should now depend on `eos-node-modules (>= 0.6)` (or build-depend on `eos-node-modules-dev (>= 0.6)`.)
-- update the Debian changelog with `dch`.
 - add the module to the Module Index at the bottom of this readme file. Specify the name of your package. Maintain alphabetical order for others' convenience.
 - add yourself to `contributors` :smile:
 - add the usual `Version_x.y.z` and `Version_x.y.z_debian` tags to the git repo.
@@ -29,10 +26,7 @@ Checklist:
 
 - check the Module Index at the bottom of this readme file. Remove your package from that module's list of packages. If you were the *only* user of that module, then you may proceed to remove it.
 - remove your module from `package.json.in`.
-- remove your module from `debian/eos-node-modules.install` or `debian/eos-node-modules-dev.install` if it was there.
-- remove your module from the `Conflicts:` line in `debian/control` if it was there.
 - in line 1 of `configure.ac`, increment the *major* version of the `eos-node-modules` package. (For example, from 0.5.0 to 1.0.0.)
-- update the Debian changelog with `dch`.
 - add the usual `Version_x.y.z` and `Version_x.y.z_debian` tags to the git repo.
 
 Note about Versions
