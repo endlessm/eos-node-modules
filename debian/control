@@ -15,19 +15,7 @@ Architecture: any
 Depends: ${misc:Depends},
          ${npm:Overlaps}
 Suggests: nodejs
-Conflicts: node-autoquit,
-           node-express,
-           node-feedparser,
-           node-htmlparser2,
-           node-jade,
-           node-jsonld,
-           node-keypress,
-           node-mustache,
-           node-q,
-           node-readable-stream,
-           node-require,
-           node-socket.io,
-           node-systemd
+Conflicts: ${npm:ProdPkgs}
 Description: Node.js modules required in EndlessOS
  Modules that will be installed on every user's system, for example required for
  the content center or the knowledge engine.
@@ -37,11 +25,7 @@ Architecture: any
 Depends: ${misc:Depends},
          eos-node-modules (>= ${binary:Version})
 Suggests: nodejs
-Conflicts: node-apidoc,
-           node-frisby,
-           node-jasmine-node,
-           node-rewire,
-           node-supertest
+Conflicts: ${npm:DevPkgs}
 Description: Node.js modules required for developing EndlessOS
  Modules that will not be installed on every user's system but are required for
  building other packages.
