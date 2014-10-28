@@ -1,0 +1,53 @@
+#!/bin/bash
+
+usage () {
+cat << EOF
+Usage: ls-dedupe
+Prints the toplevel modules when running "npm dedupe" on a set of package.json 
+modules. npm-dedupe has no "dry run" capability, so we need to actually run it
+to get a list of the deduped modules. 
+EOF
+}
+
+case "$1" in
+    -h|--help)
+        usage
+        exit 0
+    ;;
+esac
+
+SCRIPTS_DIR=$(dirname $(readlink -f $0))
+WORKSPACEDIR=$SCRIPTS_DIR/.dedupe_workspace
+CACHE_NAME=$SCRIPTS_DIR/.ls-dedupe-cache
+
+print_cache_and_exit () {
+    cat $CACHE_NAME
+    exit 0
+}
+
+# create a temporary directory, copy package.json into it, and move into that dir
+setup_workspace () {
+    mkdir -p $WORKSPACEDIR
+    cp package.json $WORKSPACEDIR
+    cd $WORKSPACEDIR
+}
+
+# move back to the scripts dir and remove the temporary directory
+teardown_workspace () {
+    cd $SCRIPTS_DIR
+    rm -r $WORKSPACEDIR
+}
+
+if [ -e $CACHE_NAME ]; then
+    print_cache_and_exit
+fi
+
+setup_workspace
+
+npm install > /dev/null 2>&1
+npm dedupe > /dev/null 2>&1
+ls node_modules > $CACHE_NAME
+
+teardown_workspace
+
+print_cache_and_exit

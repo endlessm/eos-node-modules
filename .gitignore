@@ -8,3 +8,4 @@
 /node_modules
 /package.json
 *.stamp
+.ls-dedupe-cache
