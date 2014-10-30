@@ -50,33 +50,11 @@ def _analyze_dependencies(packages):
     return sysmodules
 
 
-def system_node_modules(pkg_json_path=None):
+def system_node_modules():
     """Return a set of all the node.js modules that are dependencies of node.js
-    utilities that need to be installed on the system. If a pkg_json_path is
-    specified, it will instead return the modules that pkg_json_path has in
-    common with the system"""
+    utilities that need to be installed on the system."""
     system_modules = _analyze_dependencies(_SYSPACKAGES)
 
-    if pkg_json_path is not None:
-        with open(pkg_json_path) as json_file:
-            # load the package.json file
-            node_pkg_data = json.load(json_file)
-            all_deps = set()
-
-            # for dependencies and devDependencies, collect the module names
-            # and convert them into package names (by prepending 'node-')
-            if 'dependencies' in node_pkg_data:
-                node_deps = node_pkg_data['dependencies'].keys()
-                pkg_deps = ['node-' + module for module in node_deps]
-                all_deps |= set(pkg_deps)
-            if 'devDependencies' in node_pkg_data:
-                node_dev_deps = node_pkg_data['devDependencies'].keys()
-                pkg_dev_deps = ['node-' + module for module in node_dev_deps]
-                all_deps |= set(pkg_dev_deps)
-
-            # return the debian package names for all shared node modules in
-            # package.json and existing system modules
-            return all_deps & system_modules
     return system_modules
 
 def package_manifest_modules(pkg_json_path):
@@ -112,15 +90,23 @@ def toplevel_deduped_modules(pkg_json_path):
 
 def main(action, fmt, pkg_json_path):
     if action == 'intersect':
-        pkg_names = system_node_modules(pkg_json_path)
+        sysdeps = system_node_modules()
+        prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
+        deduped_only = toplevel_deduped_modules(pkg_json_path)
+
+        to_be_installed = set(prod_pkgs) | set(dev_pkgs) | set(deduped_only)
+
+        pkg_names = to_be_installed & sysdeps
     elif action == 'sysmodules':
         pkg_names = system_node_modules()
     elif action == 'dev' or action == 'prod':
         prod_pkgs, dev_pkgs = package_manifest_modules(pkg_json_path)
         node_pkgs = prod_pkgs if action == 'prod' else dev_pkgs
         sys_pkgs = system_node_modules()
+
         if action == 'prod':
             node_pkgs = set(node_pkgs) | set(toplevel_deduped_modules(pkg_json_path))
+
         pkg_names = set(node_pkgs) - set(sys_pkgs)
 
     if fmt == 'node':
