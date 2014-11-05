@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import collections
 import subprocess
 import sys
 import argparse
@@ -11,6 +12,9 @@ _SYSPACKAGES = ['npm']
 parser = argparse.ArgumentParser()
 parser.add_argument('package_manifest_path', type=str, nargs='?',
                     help='path to the package.json file')
+parser.add_argument('-b', '--bin',
+                    help='print the binary scripts installed by (DEDUPED NODE MODULES) - (SYSTEM MODULES)',
+                    action='store_true')
 parser.add_argument('-i', '--intersect',
                     help='print the intersection of system modules and package.json modules',
                     action='store_true')
@@ -88,6 +92,40 @@ def toplevel_deduped_modules(pkg_json_path):
     deduped_only = set(all_modules) - all_manifest_modules
     return deduped_only
 
+def print_bin_links(pkg_json_path):
+    sysdeps = system_node_modules()
+    sysdeps_names = [dep[len('node-'):] for dep in sysdeps]
+
+    with open(pkg_json_path) as json_file:
+        # load the package.json file
+        node_pkg_data = json.load(json_file, object_pairs_hook=collections.OrderedDict)
+        if 'dependencies' in node_pkg_data:
+            node_deps = node_pkg_data['dependencies']
+            clean_node_deps = collections.OrderedDict((dep, version) for dep, version in node_deps.iteritems() if dep not in sysdeps_names)
+            node_pkg_data['dependencies'] = clean_node_deps
+
+        if 'devDependencies' in node_pkg_data:
+            node_dev_deps = node_pkg_data['devDependencies']
+            clean_node_dev_deps = collections.OrderedDict((dep, version) for dep, version in node_dev_deps.iteritems() if dep not in sysdeps_names)
+            node_pkg_data['devDependencies'] = clean_node_dev_deps
+
+        with open('package.filtered.json', 'w') as json_dump_file:
+            json.dump(node_pkg_data, json_dump_file, separators=(',', ': '), indent=2)
+            json_dump_file.write('\n')
+            json_dump_file.close()
+
+            bindir = subprocess.check_output(['npm', 'bin']).strip()
+            bindir = os.path.relpath(bindir)
+            bindir = bindir[len('node_modules/'):]
+
+            buf = subprocess.check_output(['./ls-bin']).splitlines()
+            binaries = [os.path.join(bindir, binary) for binary in buf]
+
+            for binary in binaries:
+                print os.path.join('usr/lib/nodejs', binary), os.path.join('usr/bin', os.path.basename(binary))
+
+            os.unlink('package.filtered.json')
+
 def main(action, fmt, pkg_json_path):
     if action == 'intersect':
         sysdeps = system_node_modules()
@@ -126,6 +164,10 @@ if __name__ == '__main__':
     if args.package_manifest_path and not os.path.isfile(args.package_manifest_path):
         print 'Nonexistent package.json at package_manifest_path: %s' % args.package_manifest_path
         sys.exit(1)
+
+    if args.bin:
+        print_bin_links(args.package_manifest_path)
+        sys.exit(0)
 
     if args.intersect:
         main('intersect', args.fmt, args.package_manifest_path)

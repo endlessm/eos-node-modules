@@ -15,7 +15,7 @@ npm.stamp: package.json
 
 CLEANFILES = sysmodules-cache.txt .ls-dedupe-cache
 DISTCLEANFILES = npm.stamp
-EXTRA_DIST = node-pkg-info.py ls-dedupe
+EXTRA_DIST = node-pkg-info.py ls-dedupe ls-bin
 
 # Use $(prefix)/lib/nodejs instead of $(libdir)/nodejs; nodejs will not look for
 # modules in /usr/lib/i386-linux-gnu/nodejs, for example.
