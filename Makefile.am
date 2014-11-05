@@ -34,7 +34,11 @@ install-data-local: installdirs
 		else \
 			echo "Skipping system module $$module_name..."; \
 		fi \
-	done
+	done; \
+	if [ -d node_modules/.bin ]; then \
+		echo "Installing binaries..."; \
+		cp -R node_modules/.bin $(DESTDIR)$(prefix)/lib/nodejs; \
+	fi
 
 uninstall-local:
 	export system_modules="`echo "@eos_node_system_modules@" | sed "s/ /\n/g"`"; \
@@ -45,7 +49,11 @@ uninstall-local:
 			echo "Uninstalling $$module_name..."; \
 			rm -rf $(DESTDIR)$(prefix)/lib/nodejs/$$module_name; \
 		fi \
-	done
+	done; \
+	if [ -d node_modules/.bin ]; then \
+		echo "Uninstalling binaries..."; \
+		rm -rf $(DESTDIR)$(prefix)/lib/nodejs/.bin; \
+	fi
 
 distclean-local:
 	rm -rf node_modules
