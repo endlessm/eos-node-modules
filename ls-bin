@@ -1,0 +1,45 @@
+#!/bin/bash
+
+usage () {
+cat << EOF
+Usage: ls-bin
+Prints the binary files that will be installed on a set of package.json
+modules.
+EOF
+}
+
+case "$1" in
+    -h|--help)
+        usage
+        exit 0
+    ;;
+esac
+
+SCRIPTS_DIR=$(dirname $(readlink -f $0))
+WORKSPACEDIR=$SCRIPTS_DIR/.bin_workspace
+
+print_binaries () {
+    BIN_DIR=$1
+    ls $BIN_DIR
+}
+
+# create a temporary directory, copy package.json into it, and move into that dir
+setup_workspace () {
+    mkdir -p $WORKSPACEDIR
+    cp package.filtered.json $WORKSPACEDIR/package.json
+    cd $WORKSPACEDIR
+}
+
+# move back to the scripts dir and remove the temporary directory
+teardown_workspace () {
+    cd $SCRIPTS_DIR
+    rm -r $WORKSPACEDIR
+}
+
+setup_workspace
+
+npm install > /dev/null 2>&1
+BIN_DIR=$(npm bin)
+print_binaries $BIN_DIR
+
+teardown_workspace
