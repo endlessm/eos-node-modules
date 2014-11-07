@@ -122,7 +122,7 @@ def print_bin_links(pkg_json_path):
             binaries = [os.path.join(bindir, binary) for binary in buf]
 
             for binary in binaries:
-                print os.path.join('usr/lib/nodejs', binary), os.path.join('usr/bin', os.path.basename(binary))
+                print os.path.join('usr/lib/nodejs', binary), os.path.join('usr/bin', 'node-' + os.path.basename(binary))
 
             os.unlink('package.filtered.json')
 
