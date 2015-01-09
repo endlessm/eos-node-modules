@@ -54,6 +54,7 @@ Module index
 - **jade**: eos-knowledge-engine
 - **jasmine-node**: eos-knowledge-engine (dev)
 - **jsonld**: eos-knowledge-engine
+- **lcov-result-merger**: eos-sdk (dev)
 - **mime**: eos-knowledge-engine
 - **mustache**: eos-knowledge-engine
 - **q**: eos-knowledge-engine
