@@ -19,7 +19,6 @@
     "mustache": "^0.7",
     "socket.io": "^0.9",
     "mime": "^1.2",
-    "require": "*",
     "autoquit": "*",
     "systemd": "*"
   },
