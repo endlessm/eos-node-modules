@@ -44,21 +44,20 @@ Definitely don't upgrade modules just because there is a new major version avail
 Module index
 ------------
 - **apidoc**: eos-knowledge-engine (dev)
-- **autoquit**: eos-wikipedia-offline, eos-newspaper-server, eos-knowledge-engine
-- **express**: eos-knowledge-engine, eos-wikipedia-offline, eos-newspaper-server
+- **autoquit**: eos-newspaper-server, eos-knowledge-engine
+- **express**: eos-knowledge-engine, eos-newspaper-server
 - **feedparser**: eos-newspaper-updater
 - **frisby**: eos-knowledge-engine (dev)
 - **htmlparser2**: eos-newspaper-updater
-- **i18n-moustache**: eos-knowledge-engine, eos-wikipedia-offline
-- **jade**: eos-knowledge-engine, eos-wikipedia-offline
-- **jasmine-node**: eos-knowledge-engine (dev), eos-wikipedia-offline (dev)
+- **i18n-moustache**: eos-knowledge-engine
+- **jade**: eos-knowledge-engine
+- **jasmine-node**: eos-knowledge-engine (dev)
 - **jsonld**: eos-knowledge-engine
 - **mime**: eos-knowledge-engine
-- **mustache**: eos-knowledge-engine, eos-wikipedia-offline
-- **q**: eos-knowledge-engine, eos-wikipedia-offline
+- **mustache**: eos-knowledge-engine
+- **q**: eos-knowledge-engine
 - **request**: eos-knowledge-engine
-- **require**: eos-wikipedia-offline
 - **rewire**: eos-knowledge-engine (dev)
-- **socket.io**: eos-knowledge-engine, eos-wikipedia-offline
+- **socket.io**: eos-knowledge-engine
 - **supertest**: eos-knowledge-engine (dev)
-- **systemd**: eos-wikipedia-offline, eos-newspaper-server, eos-knowledge-engine
+- **systemd**: eos-newspaper-server, eos-knowledge-engine
