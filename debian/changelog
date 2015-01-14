@@ -2,6 +2,9 @@ eos-node-modules (1.0.0) UNRELEASED; urgency=low
 
   [Philip Chimento]
   * Removed "require" module because eos-wikipedia-offline is deprecated.
+  
+  [Sam Spilsbury]
+  * Added "istanbul" and "lcov-result-merger" modules. 
 
  -- Philip Chimento <philip@endlessm.com>  Tue, 13 Jan 2015 14:50:17 -0800
 
