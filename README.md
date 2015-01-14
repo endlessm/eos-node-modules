@@ -50,9 +50,11 @@ Module index
 - **frisby**: eos-knowledge-engine (dev)
 - **htmlparser2**: eos-newspaper-updater
 - **i18n-moustache**: eos-knowledge-engine
+- **istanbul**: eos-knowledge-engine (dev)
 - **jade**: eos-knowledge-engine
 - **jasmine-node**: eos-knowledge-engine (dev)
 - **jsonld**: eos-knowledge-engine
+- **lcov-result-merger**: eos-sdk (dev)
 - **mime**: eos-knowledge-engine
 - **mustache**: eos-knowledge-engine
 - **q**: eos-knowledge-engine
