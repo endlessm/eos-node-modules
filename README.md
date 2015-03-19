@@ -53,6 +53,8 @@ Module index
 - **istanbul**: eos-knowledge-engine (dev)
 - **jade**: eos-knowledge-engine
 - **jasmine-node**: eos-knowledge-engine (dev)
+- **jscs**: eos-dev-config (dev)
+- **jshint**: eos-dev-config (dev)
 - **jsonld**: eos-knowledge-engine
 - **lcov-result-merger**: eos-sdk (dev)
 - **mime**: eos-knowledge-engine

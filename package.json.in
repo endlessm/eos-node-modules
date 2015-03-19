@@ -25,6 +25,8 @@
   "devDependencies": {
     "apidoc": "^0.4",
     "frisby": "^0.7",
+    "jscs": "*",
+    "jshint": "*",
     "rewire": "^2.0",
     "supertest": "^0.10",
     "jasmine-node": "^1.12",
