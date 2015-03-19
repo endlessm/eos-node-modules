@@ -13,12 +13,11 @@ For the most part, this is as simple as adding the module to `dependencies` or `
 Go through the following checklist:
 
 - add the module and its version to `dependencies` or `devDependencies` in `package.json.in` (see Note about Versions, below.)
-- run `make` and make sure the module is downloaded and compiled correctly.
+- run `autogen.sh` followed by `make` and make sure the module is downloaded and compiled correctly.
 - run `DESTDIR=staging make install` to test installing into a staging directory.
 - in line 1 of `configure.ac`, increment the *minor* version of the `eos-node-modules` package. (For example, from 0.5.0 to 0.6.0.) Your package should now depend on `eos-node-modules (>= 0.6)` (or build-depend on `eos-node-modules-dev (>= 0.6)`.)
 - add the module to the Module Index at the bottom of this readme file. Specify the name of your package. Maintain alphabetical order for others' convenience.
-- add yourself to `contributors` :smile:
-- add the usual `Version_x.y.z` and `Version_x.y.z_debian` tags to the git repo.
+- add the usual `Version_x.y.z` to the `master` branch and `Version_x.y.z_debian` tags to the `debian-master` branch of this `eos-node-modules` git repo.
 
 Removing a module
 -----------------
