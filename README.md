@@ -42,11 +42,9 @@ Definitely don't upgrade modules just because there is a new major version avail
 
 Module index
 ------------
-- **autoquit**: eos-license-service, eos-newspaper-server
-- **express**: eos-license-service, eos-newspaper-server
-- **feedparser**: eos-newspaper-updater
-- **htmlparser2**: eos-newspaper-updater
+- **autoquit**: eos-license-service
+- **express**: eos-license-service
 - **jscs**: eos-dev-config (dev)
 - **jshint**: eos-dev-config (dev)
 - **lcov-result-merger**: eos-sdk (dev)
-- **systemd**: eos-license-service, eos-newspaper-server
+- **systemd**: eos-license-service
