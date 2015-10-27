@@ -43,8 +43,8 @@ Definitely don't upgrade modules just because there is a new major version avail
 Module index
 ------------
 - **apidoc**: eos-knowledge-engine (dev)
-- **autoquit**: eos-newspaper-server, eos-knowledge-engine
-- **express**: eos-knowledge-engine, eos-newspaper-server
+- **autoquit**: eos-knowledge-engine, eos-license-service, eos-newspaper-server
+- **express**: eos-knowledge-engine, eos-license-service, eos-newspaper-server
 - **feedparser**: eos-newspaper-updater
 - **frisby**: eos-knowledge-engine (dev)
 - **htmlparser2**: eos-newspaper-updater
@@ -63,4 +63,4 @@ Module index
 - **rewire**: eos-knowledge-engine (dev)
 - **socket.io**: eos-knowledge-engine
 - **supertest**: eos-knowledge-engine (dev)
-- **systemd**: eos-newspaper-server, eos-knowledge-engine
+- **systemd**: eos-knowledge-engine, eos-license-service, eos-newspaper-server
