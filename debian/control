@@ -23,8 +23,8 @@ Description: Node.js modules required in EndlessOS
 Package: eos-node-modules-dev
 Architecture: any
 Depends: ${misc:Depends},
-         eos-node-modules (>= ${binary:Version})
-Suggests: nodejs
+         eos-node-modules (>= ${binary:Version}),
+         nodejs
 Conflicts: ${npm:DevPkgs}
 Description: Node.js modules required for developing EndlessOS
  Modules that will not be installed on every user's system but are required for
