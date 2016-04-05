@@ -13,6 +13,9 @@ override_dh_install:
 	./node-pkg-info.py package.json --diff prod --format install > debian/eos-node-modules.install
 	./node-pkg-info.py package.json --diff dev --format install > debian/eos-node-modules-dev.install
 	./node-pkg-info.py package.json --bin > debian/eos-node-modules-dev.links
+	# Extra links for external packages
+	echo 'usr/bin/node-jscs usr/bin/jscs' >> debian/eos-node-modules-dev.links
+	echo 'usr/bin/node-jshint usr/bin/jshint' >> debian/eos-node-modules-dev.links
 
 # If we are installing binary links, also append the bin directory to the install file
 	FILE_SIZE=`stat -L -c %s debian/eos-node-modules-dev.links` ; \
