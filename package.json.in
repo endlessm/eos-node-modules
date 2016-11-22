@@ -10,6 +10,7 @@
   "dependencies": {
     "express": "^3.5",
     "autoquit": "*",
+    "ramda": "*",
     "systemd": "*"
   },
   "devDependencies": {
