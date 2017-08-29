@@ -14,7 +14,8 @@ Package: eos-node-modules
 Architecture: any
 Depends: ${misc:Depends},
          ${npm:Overlaps}
-Suggests: nodejs
+Suggests: nodejs,
+          nodejs-legacy
 Conflicts: ${npm:ProdPkgs}
 Description: Node.js modules required in EndlessOS
  Modules that will be installed on every user's system, for example required for
@@ -24,7 +25,8 @@ Package: eos-node-modules-dev
 Architecture: any
 Depends: ${misc:Depends},
          eos-node-modules (>= ${binary:Version}),
-         nodejs
+         nodejs,
+         nodejs-legacy
 Conflicts: ${npm:DevPkgs}
 Description: Node.js modules required for developing EndlessOS
  Modules that will not be installed on every user's system but are required for
