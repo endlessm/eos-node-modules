@@ -3,6 +3,7 @@ Section: non-free/web
 Priority: optional
 Maintainer: Philip Chimento <philip@endlessm.com>
 Build-Depends: apt,
+               ca-certificates,
                debhelper (>= 9),
                nodejs-legacy,
                npm,
