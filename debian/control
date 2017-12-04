@@ -11,17 +11,6 @@ Build-Depends: apt,
 Standards-Version: 3.9.4
 Vcs-Git: https://github.com/endlessm/eos-node-modules
 
-Package: eos-node-modules
-Architecture: any
-Depends: ${misc:Depends},
-         ${npm:Overlaps}
-Suggests: nodejs,
-          nodejs-legacy
-Conflicts: ${npm:ProdPkgs}
-Description: Node.js modules required in EndlessOS
- Modules that will be installed on every user's system, for example required for
- the content center or the knowledge engine.
-
 Package: eos-node-modules-dev
 Architecture: any
 Depends: ${misc:Depends},

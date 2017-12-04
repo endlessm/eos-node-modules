@@ -1,3 +1,10 @@
+eos-node-modules (3.0.0) UNRELEASED; urgency=medium
+
+  * Remove unused modules formerly required by eos-license-server, since it
+    now uses libsoup.
+
+ -- Will Thompson <wjt@endlessm.com>  Mon, 4 Oct 2017 15:10:00 +0000
+
 eos-node-modules (2.0.0) UNRELEASED; urgency=medium
 
   * Remove unused modules required by eos-knowledge-engine and

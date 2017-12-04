@@ -10,7 +10,6 @@ DEV_PKGS=`./node-pkg-info.py package.json --diff dev --format deb`
 SUBSTVARS=-Vnpm:Overlaps="$(OVERLAPS)" -Vnpm:ProdPkgs="$(PROD_PKGS)" -Vnpm:DevPkgs="$(DEV_PKGS)"
 
 override_dh_install:
-	./node-pkg-info.py package.json --diff prod --format install > debian/eos-node-modules.install
 	./node-pkg-info.py package.json --diff dev --format install > debian/eos-node-modules-dev.install
 	./node-pkg-info.py package.json --bin > debian/eos-node-modules-dev.links
 	# Extra links for external packages
