@@ -65,6 +65,7 @@ def package_manifest_modules(pkg_json_path):
     with open(pkg_json_path) as json_file:
         # load the package.json file
         node_pkg_data = json.load(json_file)
+        pkg_deps = pkg_dev_deps = []
         if 'dependencies' in node_pkg_data:
             node_deps = node_pkg_data['dependencies'].keys()
             pkg_deps = ['node-' + module for module in node_deps]
