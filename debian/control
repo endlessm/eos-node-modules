@@ -5,7 +5,7 @@ Maintainer: Philip Chimento <philip@endlessm.com>
 Build-Depends: apt,
                ca-certificates,
                debhelper (>= 9),
-               nodejs-legacy,
+               nodejs,
                npm,
                python
 Standards-Version: 3.9.4
@@ -16,7 +16,6 @@ Architecture: any
 Depends: ${misc:Depends},
          ${npm:Overlaps}
 Suggests: nodejs,
-          nodejs-legacy
 Conflicts: ${npm:ProdPkgs}
 Description: Node.js modules required in EndlessOS
  Modules that will be installed on every user's system, for example required for
@@ -27,7 +26,6 @@ Architecture: any
 Depends: ${misc:Depends},
          eos-node-modules (>= ${binary:Version}),
          nodejs,
-         nodejs-legacy
 Conflicts: ${npm:DevPkgs}
 Description: Node.js modules required for developing EndlessOS
  Modules that will not be installed on every user's system but are required for
