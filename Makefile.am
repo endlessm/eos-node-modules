@@ -13,7 +13,7 @@ npm.stamp: package.json
 # appropriate install rules to the debian/*.install files, and add them to
 # Conflicts: in debian/control.
 
-CLEANFILES = sysmodules-cache.txt .ls-dedupe-cache
+CLEANFILES = sysmodules-cache.txt .ls-dedupe-cache package-lock.json
 DISTCLEANFILES = npm.stamp
 EXTRA_DIST = node-pkg-info.py ls-dedupe ls-bin
 
