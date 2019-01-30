@@ -9,3 +9,4 @@
 /package.json
 *.stamp
 .ls-dedupe-cache
+package-lock.json
